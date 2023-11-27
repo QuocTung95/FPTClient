@@ -9,6 +9,7 @@ async function connectDB() {
     print('Connect mongoose successfully', OutputType.SUCCESS);
     return connection;
   } catch (error) {
+    console.log('error', error);
     const { code } = error;
     if (error.code == 8000) {
       throw new Exception(Exception.WRONG_DB_USERNAME_PASSWORD);
