@@ -52,6 +52,7 @@ const Home = (props) => {
       message.success(res.message);
       setIsModalOpen(false);
       onGetList();
+      setPoll(res.data);
     } catch (error) {
       console.log('error', error);
       message.error(error.message);

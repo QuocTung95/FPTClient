@@ -13,6 +13,15 @@ services:
       context: ./BE
     ports:
       - '3002:3002'
+    depends_on:
+      - mongo
+    environment:
+      SALT_ROUNDS: some_key
+      JWT_SECRET: tungnq
+      MONGO_URI: mongodb://admin:pass@mongo:27017/?authMechanism=DEFAULT
+      ACCESS_TOKEN_SECRET: tungnguyenquoc
+      PORT: 3002
+
   mongo:
     image: mongo #latest version
     container_name: mongo-container
