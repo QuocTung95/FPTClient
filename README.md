@@ -12,6 +12,7 @@
 ```bash
 git clone https://github.com/QuocTung95/FPTClient.git
 cd FPT
+run docker daemon (can use docker desktop)
 docker-compose build  -> to build
 docker-compose down  -> to terminate
 docker-compose up -d -> to run
