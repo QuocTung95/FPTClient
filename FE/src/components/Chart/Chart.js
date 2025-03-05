@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef, useId } from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { Bar, Pie } from 'react-chartjs-2';
-import { Select, Space } from 'antd';
-import { faker } from '@faker-js/faker';
-import { LOCAL_STOGRATE_USER_INFOR } from '../../contants/index';
+import React, { useState, useEffect, useRef, useId } from "react";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from "chart.js";
+import { Bar, Pie } from "react-chartjs-2";
+import { Select, Space } from "antd";
+import { faker } from "@faker-js/faker";
+import { LOCAL_STOGRATE_USER_INFOR } from "../../contants/index";
 
 ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Chart = ({ poll }) => {
   const inforUser = JSON.parse(localStorage.getItem(LOCAL_STOGRATE_USER_INFOR));
-  const userId = inforUser._id;
+  const userId = inforUser?._id;
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState([]);
   const [backgroundColor, setBackgroundColor] = useState([]);
-  const [typeChart, setTypeChart] = useState('verticalBar');
+  const [typeChart, setTypeChart] = useState("verticalBar");
   const [isVote, setIsVote] = useState(false);
 
   const [options, setOptions] = useState({
@@ -24,7 +24,7 @@ const Chart = ({ poll }) => {
       },
       title: {
         display: true,
-        text: poll.title || '',
+        text: poll.title || "",
       },
     },
   });
@@ -40,7 +40,7 @@ const Chart = ({ poll }) => {
     poll.votes.forEach((item) => {
       newLabels.push(item.option);
       newData.push(item.voters.length);
-      newBackgroundColor.push(faker.color.rgb({ format: 'css', includeAlpha: true }));
+      newBackgroundColor.push(faker.color.rgb({ format: "css", includeAlpha: true }));
       if (item.voters.includes(userId)) {
         newIsVote = true;
       }
@@ -52,12 +52,12 @@ const Chart = ({ poll }) => {
         ...options.plugins,
         title: {
           ...options.plugins.title,
-          text: poll.title || '',
+          text: poll.title || "",
         },
       },
     };
 
-    console.log('newIsVote', newIsVote);
+    console.log("newIsVote", newIsVote);
 
     setIsVote(newIsVote);
     setLabels(newLabels);
@@ -71,14 +71,14 @@ const Chart = ({ poll }) => {
       ...options,
     };
     switch (value) {
-      case 'verticalBar':
+      case "verticalBar":
         delete newOption.indexAxis;
         delete newOption.elements;
         newOption.plugins.legend = false;
         setOptions(newOption);
         break;
-      case 'horizontalBar':
-        newOption.indexAxis = 'y';
+      case "horizontalBar":
+        newOption.indexAxis = "y";
         newOption.plugins.legend = false;
         newOption.elements = {
           bar: {
@@ -87,7 +87,7 @@ const Chart = ({ poll }) => {
         };
         setOptions(newOption);
         break;
-      case 'pie':
+      case "pie":
         newOption.plugins.legend = true;
         setOptions(newOption);
         break;
@@ -108,10 +108,10 @@ const Chart = ({ poll }) => {
       ],
     };
     switch (typeChart) {
-      case 'verticalBar':
-      case 'horizontalBar':
+      case "verticalBar":
+      case "horizontalBar":
         return <Bar options={options} data={dataChart} />;
-      case 'pie':
+      case "pie":
         return <Pie options={options} data={dataChart} />;
 
       default:
@@ -131,9 +131,9 @@ const Chart = ({ poll }) => {
                   style={{ width: 120 }}
                   onChange={(value) => onChangeType(value)}
                   options={[
-                    { value: 'verticalBar', label: 'Vertical Bar Chart' },
-                    { value: 'horizontalBar', label: 'Horizontal Bar Chart' },
-                    { value: 'pie', label: 'Pie Chart' },
+                    { value: "verticalBar", label: "Vertical Bar Chart" },
+                    { value: "horizontalBar", label: "Horizontal Bar Chart" },
+                    { value: "pie", label: "Pie Chart" },
                   ]}
                 />
               </div>
